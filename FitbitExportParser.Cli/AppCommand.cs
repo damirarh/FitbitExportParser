@@ -21,11 +21,25 @@ public class AppCommand(IFitbitService fitbitService, ICsvService csvService)
     [Option(Description = "Name for the generated CSV file. Required.")]
     public string Output { get; set; } = null!;
 
+    [Option(
+        Description = "Threshold for dividing by 10 the weight entries that are above the specified value. The resulting value will still be converted from pounds to kilograms if applicable."
+    )]
+    public double? WeightDivideBy10Threshold { get; set; }
+
+    [Option(
+        Description = "Threshold for converting weight from pounds to kilograms. If the weight is above this threshold, it will be converted to kilograms."
+    )]
+    public double? PoundConversionThreshold { get; set; }
+
     public async Task<int> OnExecuteAsync()
     {
         var historicalData = new HistoricalData();
 
-        await historicalData.AddWeightEntriesAsync(fitbitService.LoadWeightDataAsync(Input));
+        await historicalData.AddWeightEntriesAsync(
+            fitbitService.LoadWeightDataAsync(Input),
+            PoundConversionThreshold,
+            WeightDivideBy10Threshold
+        );
 
         await csvService.WriteAsync(Output, historicalData.DayEntries);
 
