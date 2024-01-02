@@ -32,6 +32,11 @@ public class FitbitService : IFitbitService
         return LoadDataAsync<StepsEntry>(rootFolder, $"Physical Activity/steps-*.json");
     }
 
+    public IAsyncEnumerable<SleepEntry> LoadSleepDataAsync(string rootFolder)
+    {
+        return LoadDataAsync<SleepEntry>(rootFolder, $"Sleep/sleep-*.json");
+    }
+
     private static async IAsyncEnumerable<T> LoadDataAsync<T>(string rootFolder, string filePattern)
     {
         var matcher = new Matcher();

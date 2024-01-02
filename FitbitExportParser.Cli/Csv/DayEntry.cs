@@ -25,4 +25,14 @@ public class DayEntry(DateOnly date)
     /// Gets or sets the steps of the day entry.
     /// </summary>
     public double Steps { get; set; }
+
+    /// <summary>
+    /// Gets or sets the time in bed in hours of the day entry.
+    /// </summary>
+    public double? TimeInBed { get; set; }
+
+    /// <summary>
+    /// Gets or sets the time asleep in hours of the day entry.
+    /// </summary>
+    public double? TimeAsleep { get; set; }
 }

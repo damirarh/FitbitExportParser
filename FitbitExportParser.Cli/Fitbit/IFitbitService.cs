@@ -27,4 +27,11 @@ public interface IFitbitService
     /// <param name="rootFolder">Folder containing the Physical Activity subfolder to read steps data from.</param>
     /// <returns>Steps data from all steps-*.json files.</returns>
     IAsyncEnumerable<StepsEntry> LoadStepsDataAsync(string rootFolder);
+
+    /// <summary>
+    /// Loads sleep data from the specified root folder.
+    /// </summary>
+    /// <param name="rootFolder">Folder containing the Sleep subfolder to read sleep data from.</param>
+    /// <returns>Sleep data from all sleep-*.json files.</returns>
+    IAsyncEnumerable<SleepEntry> LoadSleepDataAsync(string rootFolder);
 }

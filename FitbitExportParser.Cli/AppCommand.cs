@@ -42,6 +42,7 @@ public class AppCommand(IFitbitService fitbitService, ICsvService csvService)
         );
         await historicalData.AddDistanceEntriesAsync(fitbitService.LoadDistanceDataAsync(Input));
         await historicalData.AddStepsEntriesAsync(fitbitService.LoadStepsDataAsync(Input));
+        await historicalData.AddSleepEntriesAsync(fitbitService.LoadSleepDataAsync(Input));
 
         await csvService.WriteAsync(Output, historicalData.DayEntries);
 

@@ -91,6 +91,34 @@ public class HistoricalData
         return AddEntriesAsync(stepsEntries, stepsMutator, dateSelector);
     }
 
+    /// <summary>
+    /// Adds the sleep entries to the historical data.
+    /// </summary>
+    /// <param name="sleepEntries">Sleep data from the Fitbit export.</param>
+    public Task AddSleepEntriesAsync(IAsyncEnumerable<SleepEntry> sleepEntries)
+    {
+        void sleepMutator(DayEntry dayEntry, SleepEntry sleepEntry)
+        {
+            if (sleepEntry.MainSleep)
+            {
+                dayEntry.TimeInBed = Math.Round(
+                    sleepEntry.TimeInBed / 60.0,
+                    2,
+                    MidpointRounding.AwayFromZero
+                );
+                dayEntry.TimeAsleep = Math.Round(
+                    sleepEntry.MinutesAsleep / 60.0,
+                    2,
+                    MidpointRounding.AwayFromZero
+                );
+            }
+        }
+
+        DateOnly dateSelector(SleepEntry sleepEntry) => sleepEntry.DateOfSleep;
+
+        return AddEntriesAsync(sleepEntries, sleepMutator, dateSelector);
+    }
+
     private async Task AddEntriesAsync<T>(
         IAsyncEnumerable<T> fitbitEntries,
         Action<DayEntry, T> dayEntryMutator,
