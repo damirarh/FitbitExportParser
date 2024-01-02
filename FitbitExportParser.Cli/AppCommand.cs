@@ -40,6 +40,8 @@ public class AppCommand(IFitbitService fitbitService, ICsvService csvService)
             PoundConversionThreshold,
             WeightDivideBy10Threshold
         );
+        await historicalData.AddDistanceEntriesAsync(fitbitService.LoadDistanceDataAsync(Input));
+        await historicalData.AddStepsEntriesAsync(fitbitService.LoadStepsDataAsync(Input));
 
         await csvService.WriteAsync(Output, historicalData.DayEntries);
 

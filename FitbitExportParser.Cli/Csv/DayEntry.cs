@@ -15,4 +15,14 @@ public class DayEntry(DateOnly date)
     /// Gets or sets the weight in kilograms of the day entry.
     /// </summary>
     public double? Weight { get; set; }
+
+    /// <summary>
+    /// Gets or sets the distance in kilometers of the day entry.
+    /// </summary>
+    public double Distance { get; set; }
+
+    /// <summary>
+    /// Gets or sets the steps of the day entry.
+    /// </summary>
+    public double Steps { get; set; }
 }
